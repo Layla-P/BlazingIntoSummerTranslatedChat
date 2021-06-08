@@ -1,0 +1,35 @@
+﻿@page "/"
+@using Microsoft.AspNetCore.SignalR.Client
+@inject NavigationManager NavigationManager
+@implements IAsyncDisposable
+
+<div class="form-group">
+	<label>
+		User:
+		<input @bind="userInput" />
+	</label>
+</div>
+<div class="form-group">
+	<label>
+		Message:
+		<input @bind="messageInput" size="50" />
+	</label>
+</div>
+<div class="form-group">
+	Translate to:
+	<select class="form-control selectpicker" @bind="language">
+		<option>none</option>
+		<option>cockney</option>
+		<option>redneck</option>
+	</select>
+</div>
+<button @onclick="Send" disabled="@(!IsConnected)">Send</button>
+
+<hr>
+
+<ul id="messagesList">
+	@foreach (var message in messages)
+	{
+		<li>@message</li>
+	}
+</ul>
